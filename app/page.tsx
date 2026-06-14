@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
@@ -40,43 +39,26 @@ export default function HomePage() {
         />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
           <div className="max-w-3xl">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Badge className="bg-amber-500 text-gray-900 font-semibold mb-4 px-3 py-1 text-sm">
-                🏆 30+ Years of Fine Dining Expertise
-              </Badge>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-5">
-                Every Restaurant Supply
-                <span className="text-amber-400"> You'll Ever Need</span>
-              </h1>
-              <p className="text-lg sm:text-xl text-gray-300 mb-8 leading-relaxed">
-                Curated by an industry veteran with 30+ years in fine dining management.
-                Smallwares, equipment, uniforms, storage, and cleaning supplies — all hand-picked,
-                all available on Amazon with free Prime shipping.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-amber-500 hover:bg-amber-400 text-gray-900 font-bold text-base px-8"
-                >
-                  <Link href="/categories">
-                    Browse All Categories <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="border-white text-white bg-transparent hover:bg-white/10 font-semibold text-base px-8"
-                >
-                  <Link href="/top-picks">View Top Picks</Link>
-                </Button>
-              </div>
-            </motion.div>
+            <Badge className="bg-amber-500 text-gray-900 font-semibold mb-4 px-3 py-1 text-sm">
+              🏆 30+ Years of Fine Dining Expertise
+            </Badge>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-5">
+              Every Restaurant Supply
+              <span className="text-amber-400"> You'll Ever Need</span>
+            </h1>
+            <p className="text-lg sm:text-xl text-gray-300 mb-8 leading-relaxed">
+              Curated by an industry veteran with 30+ years in fine dining management.
+              Smallwares, equipment, uniforms, storage, and cleaning supplies — all hand-picked,
+              all available on Amazon with free Prime shipping.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-400 text-gray-900 font-bold text-base px-8">
+                <Link href="/categories">Browse All Categories <ArrowRight className="ml-2 w-5 h-5" /></Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-white text-white bg-transparent hover:bg-white/10 font-semibold text-base px-8">
+                <Link href="/top-picks">View Top Picks</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -85,22 +67,16 @@ export default function HomePage() {
       <section className="bg-gray-50 border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="text-center"
-              >
+            {stats.map((stat) => (
+              <div key={stat.label} className="text-center">
                 <div className="flex justify-center mb-2">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <stat.icon className="w-5 h-5 text-primary" />
+                  <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+                    <stat.icon className="w-5 h-5 text-red-700" />
                   </div>
                 </div>
                 <div className="text-3xl font-bold text-gray-900">{stat.value}</div>
                 <div className="text-sm text-gray-500 mt-1">{stat.label}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -116,37 +92,29 @@ export default function HomePage() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {categories.slice(0, 8).map((cat, i) => (
-              <motion.div
+            {categories.slice(0, 8).map((cat) => (
+              <a
                 key={cat.id}
-                initial={{ opacity: 0, scale: 0.97 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.05 }}
+                href={cat.amazonSearchUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`block rounded-xl border-2 p-5 transition-all cursor-pointer ${cat.color} shadow-sm hover:shadow-md`}
               >
-                <a
-                  href={cat.amazonSearchUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`block rounded-xl border-2 p-5 transition-all cursor-pointer ${cat.color} shadow-sm hover:shadow-md`}
-                >
-                  <div className="text-3xl mb-3">{cat.icon}</div>
-                  <h3 className="font-bold text-gray-900 text-base mb-1">{cat.name}</h3>
-                  <p className="text-sm text-gray-600 mb-3 leading-snug">{cat.description}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-400">{cat.itemCount}+ items</span>
-                    <span className="text-xs font-semibold text-primary flex items-center gap-1">
-                      Shop Amazon <ExternalLink className="w-3 h-3" />
-                    </span>
-                  </div>
-                </a>
-              </motion.div>
+                <div className="text-3xl mb-3">{cat.icon}</div>
+                <h3 className="font-bold text-gray-900 text-base mb-1">{cat.name}</h3>
+                <p className="text-sm text-gray-600 mb-3 leading-snug">{cat.description}</p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-400">{cat.itemCount}+ items</span>
+                  <span className="text-xs font-semibold text-red-700 flex items-center gap-1">
+                    Shop Amazon <ExternalLink className="w-3 h-3" />
+                  </span>
+                </div>
+              </a>
             ))}
           </div>
           <div className="text-center mt-8">
-            <Button asChild variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-white">
-              <Link href="/categories">
-                View All 10 Categories <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
+            <Button asChild variant="outline" size="lg" className="border-red-700 text-red-700 hover:bg-red-700 hover:text-white">
+              <Link href="/categories">View All 10 Categories <ArrowRight className="ml-2 w-4 h-4" /></Link>
             </Button>
           </div>
         </div>
@@ -163,7 +131,7 @@ export default function HomePage() {
                 With over 30 years as a General Manager and Multi-Unit Director in fine dining,
                 I've purchased and used virtually every category of restaurant supply. I know
                 what holds up under commercial pressure, what's worth the price, and what
-                the industry actually uses — not just what looks good on a spec sheet.
+                the industry actually uses.
               </p>
               <ul className="space-y-2">
                 {[
@@ -204,7 +172,7 @@ export default function HomePage() {
               <h2 className="text-3xl font-bold text-gray-900 mb-2">Editor's Top Picks</h2>
               <p className="text-gray-500">Hand-selected products with the best value and highest commission potential.</p>
             </div>
-            <Button asChild variant="outline" className="hidden md:flex border-primary text-primary hover:bg-primary hover:text-white">
+            <Button asChild variant="outline" className="hidden md:flex border-red-700 text-red-700 hover:bg-red-700 hover:text-white">
               <Link href="/top-picks">See All Picks <ArrowRight className="ml-2 w-4 h-4" /></Link>
             </Button>
           </div>
@@ -230,27 +198,18 @@ export default function HomePage() {
                       <div className="font-bold text-green-700">{product.commissionRate}</div>
                     </div>
                   </div>
-                  <a
-                    href={product.amazonUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 text-gray-900 font-semibold text-sm py-2 rounded-lg transition-colors"
-                  >
+                  <a href={product.amazonUrl} target="_blank" rel="noopener noreferrer"
+                    className="w-full flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 text-gray-900 font-semibold text-sm py-2 rounded-lg transition-colors">
                     <ShoppingCart className="w-4 h-4" /> View on Amazon
                   </a>
                 </CardContent>
               </Card>
             ))}
           </div>
-          <div className="text-center mt-6 md:hidden">
-            <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">
-              <Link href="/top-picks">See All Picks <ArrowRight className="ml-2 w-4 h-4" /></Link>
-            </Button>
-          </div>
         </div>
       </section>
 
-      {/* Income potential CTA */}
+      {/* CTA */}
       <section className="py-14 bg-gray-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="flex justify-center mb-4">
@@ -261,14 +220,11 @@ export default function HomePage() {
           <h2 className="text-3xl font-bold mb-4">Build Your Passive Income Stream</h2>
           <p className="text-gray-300 text-lg mb-8 leading-relaxed">
             The Amazon Associates program pays 4–7% commission on restaurant supplies.
-            A single large kitchen setup order can generate $50–$200+ in commissions.
             See our complete step-by-step plan to turn this site into a real income engine.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-400 text-gray-900 font-bold px-8">
-              <Link href="/plan">
-                View the Full Plan <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
+              <Link href="/plan">View the Full Plan <ArrowRight className="ml-2 w-5 h-5" /></Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-white text-white bg-transparent hover:bg-white/10">
               <a href="https://affiliate-program.amazon.com" target="_blank" rel="noopener noreferrer">
